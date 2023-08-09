@@ -1,5 +1,5 @@
 import {Component, inject, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CoreService} from '../core/core.service';
 import {CommentService} from '../services/comment/comment.service';
@@ -26,7 +26,7 @@ export class CommentFormComponent implements OnInit {
     private _coreService: CoreService
   ) {
     this.commentForm = this._fb.group({
-      comment: ''
+      comment: ['', Validators.required]
     });
     this.currentFlight = data.currentFlight;
     this.existingComment = data.existingComment
@@ -56,7 +56,7 @@ export class CommentFormComponent implements OnInit {
       } else {
         let commentToBeAdded = this.commentForm.value;
         commentToBeAdded.flightId = this.currentFlight.id;
-        commentToBeAdded.userId = 1; // Here ideally you want to go and retrieve the user id from a session cache, a cookie, a customized user service, etc
+        commentToBeAdded.userId = 1; // Here ideally you want to retrieve the user id from a session cache, a cookie, a customized user service, etc
         commentToBeAdded.tags = this.tags;
 
         this._commentService.addComment(commentToBeAdded).subscribe({
@@ -71,6 +71,7 @@ export class CommentFormComponent implements OnInit {
       }
     }
   }
+
   // functionality for chips
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;

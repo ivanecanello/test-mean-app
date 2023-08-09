@@ -6,7 +6,7 @@
     <div class="row">
       <mat-form-field appearance="outline">
         <mat-label>Comment</mat-label>
-        <input matInput type="text" placeholder="Ex. Technical" formControlName="comment">
+        <textarea matInput type="text" placeholder="..." formControlName="comment"></textarea>
       </mat-form-field>
     </div>
 
@@ -34,6 +34,6 @@
   </div>
   <div mat-dialog-actions class="action">
     <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{existingComment ? 'Update' : 'Save'}}</button>
+    <button mat-raised-button color="primary" [disabled]="!this.commentForm.valid" type="submit">{{existingComment ? 'Update' : 'Save'}}</button>
   </div>
 </form>
