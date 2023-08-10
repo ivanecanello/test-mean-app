@@ -1,8 +1,8 @@
 # MEAN Stack App for Full stack test - Ivan Canello
 
-## BackEnd - Node.js Express Server
+## BackEnd - Node.js Express Server and MongoDb
 
-This application serves as a starting point for building web applications using the Node.js runtime and the Express.js framework.
+This application serves as a starting point for building web applications using the Node.js runtime and the Express.js framework and Mongodb as the database.
 
 ### Getting Started
 1. Clone this repository to your local machine.
