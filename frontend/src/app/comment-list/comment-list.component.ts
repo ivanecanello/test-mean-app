@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CommentService} from "../services/comment/comment.service";
 import {CoreService} from "../core/core.service";
 import {BehaviorSubject} from "rxjs";
+import {Flight} from "../models/flight.model";
 
 @Component({
   selector: 'app-comment-list',
@@ -14,7 +15,7 @@ import {BehaviorSubject} from "rxjs";
   styleUrls: ['./comment-list.component.scss'],
 })
 export class CommentListComponent implements OnInit {
-  private _currentFlight = new BehaviorSubject<any>([]);
+  private _currentFlight = new BehaviorSubject<Flight>(<Flight>{});
 
   @Input()
   set currentFlight(value) { this._currentFlight.next(value); };
@@ -86,7 +87,7 @@ export class CommentListComponent implements OnInit {
     }
   }
 
-  deleteComment(id: number) {
+  deleteComment(id: string) {
     this._commentService.deleteComment(id).subscribe({
       next: (res) => {
         this._coreService.openSnackBar('Comment deleted!', 'done');

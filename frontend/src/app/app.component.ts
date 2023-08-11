@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FlightService} from "./services/flight/flight.service";
+import {Flight} from "./models/flight.model";
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,8 @@ import {FlightService} from "./services/flight/flight.service";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
-  flights: any;
-  selectedFlight: any;
+  flights: Flight[] = [];
+  selectedFlight: Flight | undefined;
 
   constructor(
     private _flightService: FlightService
@@ -23,14 +23,14 @@ export class AppComponent implements OnInit {
   getFlightList() {
     this._flightService.getFlightList().subscribe({
       next: (res) => {
-        this.flights = res.flights;
+        this.flights = res;
         this.selectedFlight = this.flights[0];
       },
       error: console.log,
     });
   }
 
-  changeSelectedFlight(flight: any) {
+  changeSelectedFlight(flight: Flight) {
     this.selectedFlight = flight;
   }
 

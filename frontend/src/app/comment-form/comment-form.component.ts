@@ -6,6 +6,8 @@ import {CommentService} from '../services/comment/comment.service';
 import {MatChipEditedEvent, MatChipInputEvent} from "@angular/material/chips";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {Flight} from "../models/flight.model";
+import {Comment} from "../models/comment.model";
 
 @Component({
   selector: 'app-comment-form',
@@ -13,8 +15,8 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
   styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent implements OnInit {
-  currentFlight: any;
-  existingComment: any;
+  currentFlight: Flight;
+  existingComment: Comment;
   commentForm: FormGroup;
   tags: string[];
 
@@ -91,7 +93,7 @@ export class CommentFormComponent implements OnInit {
   remove(tag: string): void {
     const index = this.tags.indexOf(tag);
 
-    if (index >= 0) {
+    if (index && index >= 0) {
       this.tags.splice(index, 1);
 
       this.announcer.announce(`Removed ${tag}`);
@@ -108,8 +110,8 @@ export class CommentFormComponent implements OnInit {
     }
 
     // Edit tag fruit
-    const index = this.tags.indexOf(tag);
-    if (index >= 0) {
+    let index = this.tags.indexOf(tag);
+    if (index && index >= 0) {
       this.tags[index] = value;
     }
   }

@@ -8,7 +8,7 @@
   <mat-sidenav fixedInViewport="true" mode="side" opened class="mat-elevation-z8 sidenav">
     <ng-container *ngFor="let flight of flights">
       <button mat-button class="menu-button" (click)="changeSelectedFlight(flight)"
-              [ngClass]="{'flight-active': selectedFlight.id === flight.id}">
+              [ngClass]="{'flight-active': selectedFlight?.id === flight.id}">
         <mat-icon>flight</mat-icon>
         <span>Flight {{flight.name}}</span>
       </button>

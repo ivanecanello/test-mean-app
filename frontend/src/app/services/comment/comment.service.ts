@@ -1,6 +1,7 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {catchError, Observable, throwError} from 'rxjs';
+import {Comment} from "../../models/comment.model";
 
 @Injectable({
   providedIn: 'root',
@@ -8,42 +9,41 @@ import {catchError, Observable, throwError} from 'rxjs';
 export class CommentService {
 
   baseUri: string = 'http://localhost:4000/comments';
-  //baseUri: string = '/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private _http: HttpClient) {}
 
-  addComment(data: any): Observable<any> {
+  addComment(data: Comment): Observable<any> {
     return this._http
       .post(this.baseUri, data, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
 
-  updateComment(id: number, data: any): Observable<any> {
+  updateComment(id: string, data: Comment): Observable<Comment> {
     return this._http
-      .put(`${this.baseUri}/${id}`, data, { headers: this.headers })
+      .put<Comment>(`${this.baseUri}/${id}`, data, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
 
-  getCommentList(): Observable<any> {
-    return this._http.get(this.baseUri);
+  getCommentList(): Observable<Comment[]> {
+    return this._http.get<Comment[]>(this.baseUri);
   }
 
-  getCommentListById(id: number): Observable<any> {
+  getCommentListById(id: string): Observable<Comment> {
     return this._http
-      .get(`${this.baseUri}/${id}`, { headers: this.headers })
+      .get<Comment>(`${this.baseUri}/${id}`, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
 
-  getCommentListByFlightId(flightId: number): Observable<any> {
+  getCommentListByFlightId(flightId: string): Observable<Comment[]> {
     return this._http
-      .get(`${this.baseUri}/byflightid/${flightId}`, { headers: this.headers })
+      .get<Comment[]>(`${this.baseUri}/byflightid/${flightId}`, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
 
-  deleteComment(id: number): Observable<any> {
+  deleteComment(id: string): Observable<Comment> {
     return this._http
-      .delete(`${this.baseUri}/${id}`, { headers: this.headers })
+      .delete<Comment>(`${this.baseUri}/${id}`, { headers: this.headers })
       .pipe(catchError(this.errorMgmt));
   }
 
